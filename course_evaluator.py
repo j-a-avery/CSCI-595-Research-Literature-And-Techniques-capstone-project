@@ -25,6 +25,7 @@ class CourseEvaluator:
 
         candidates = [(self._calculate_similarity(query_course, candidate_course), candidate_course)
                       for candidate_course in candidate_courses]
+        candidates = sorted(candidates, reverse=True)
 
         if min_match is not None:
             candidates = [(score, course)

@@ -92,8 +92,8 @@ class WordNetCourseEvaluator(CourseEvaluator):
     @classmethod
     def find_matches(cls, query_course: Course, catalog_courses: [Course]):
         candidates = [
-            (cls._calculate_similarity(query_course.description,
-                                       candidate_course.description),
+            (cls._calculate_similarity(query_course,
+                                       candidate_course),
              candidate_course)
             for candidate_course in catalog_courses
         ]

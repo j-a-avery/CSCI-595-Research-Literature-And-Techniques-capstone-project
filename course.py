@@ -9,6 +9,25 @@ class Course:
     def __repr__(self):
         return f"{self.subject}-{self.number} \"{self.title}\""
 
+    def __lt__(self, other):
+        if self.subject == other.subject:
+            return self.number < other.number
+        else:
+            return self.subject < other.subject
+
+    def __gt__(self, other):
+        if self.subject == other.subject:
+            return self.number > other.number
+        else:
+            return self.subject > other.subject
+
+    def __eq__(self, other):
+        return (self.subject == other.subject
+                and self.number == other.number
+                and self.title == other.title
+                and self.description == other.description
+                and self.common_course_number == other.common_course_number)
+
     @staticmethod
     def from_dict(course_dict):
         """
