@@ -1,4 +1,7 @@
 from course import Course
+from course_similarity import CourseSimilarity
+
+import logging
 
 
 class CourseEvaluator:
@@ -23,14 +26,18 @@ class CourseEvaluator:
         :return:
         """
 
-        candidates = [(self._calculate_similarity(query_course, candidate_course), candidate_course)
-                      for candidate_course in candidate_courses]
+        logging.info(f"Finding matches for {query_course}")
+        candidates = [CourseSimilarity(
+                self._calculate_similarity(query_course, candidate_course),
+                query_course,
+                candidate_course)
+            for candidate_course in candidate_courses]
+
         candidates = sorted(candidates, reverse=True)
 
         if min_match is not None:
-            candidates = [(score, course)
-                          for (score, course) in candidates
-                          if score >= min_match]
+            candidates = [cs for cs in candidates
+                          if cs.score >= min_match]
 
         if max_results is not None:
             candidates = candidates[:max_results]

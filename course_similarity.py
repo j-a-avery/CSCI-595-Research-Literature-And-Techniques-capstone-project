@@ -17,6 +17,7 @@ class CourseSimilarity:
     just the score member variable, allowing for e.g. sorting lists of
     CourseSimilarity scores, or finding average similarities.
     """
+
     def __init__(self, similarity_score: float, to_course: Course, from_course: Course):
         self.score = similarity_score
         self.to_course = to_course
@@ -39,9 +40,6 @@ class CourseSimilarity:
 
     def __ne__(self, other):
         return self.score != other.score
-
-    def __hash__(self):
-        return hash((self.score, self.to_course, self.from_course))
 
     def __bool__(self):
         """
@@ -87,6 +85,9 @@ class CourseSimilarity:
         """
         return pow(self.score, other.score, modulo)
 
+    def __repr__(self):
+        return str(self)
+
     def __str__(self):
         """
         :return: e.g.
@@ -94,4 +95,4 @@ class CourseSimilarity:
                 CSCI-595 Research Literature and Techniques"
             (sans newline and indentation)
         """
-        return f"{self.score:.5f} {str(self.from_course)} -> {str(self.to_course)}"
+        return f"{self.score:.5f} {str(self.to_course)} -> {str(self.from_course)}"

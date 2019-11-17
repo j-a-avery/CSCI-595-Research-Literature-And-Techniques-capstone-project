@@ -7,6 +7,9 @@ class Course:
         self.common_course_number = common_course_number
 
     def __repr__(self):
+        return f"<Course at {hex(id(self))}: {self.subject}-{self.number} {self.title} >"
+
+    def __str__(self):
         return f"{self.subject}-{self.number} \"{self.title}\""
 
     def __lt__(self, other):
@@ -28,11 +31,22 @@ class Course:
                 and self.description == other.description
                 and self.common_course_number == other.common_course_number)
 
+    def __getattr__(self, attr):
+        if attr == "id":
+            return f"{self.subject}-{self.number}"
+        elif attr == "full":
+            s = f"{self.subject}-{self.number}{f'({self.common_course_number})' if self.common_course_number else ''} "
+            s += f"{self.title}\n{self.description}"
+
+            return s
+        else:
+            raise AttributeError
+
     @staticmethod
     def from_dict(course_dict):
         """
         Creates and returns a new Course object from a dictionary object
-        :param dict_object: a dict with the following fields:
+        :param course_dict: a dict with the following fields:
                 subject
                 number
                 title
@@ -56,9 +70,3 @@ class Course:
             "description": self.description,
             "common_course_number": self.common_course_number
         }
-
-    def full(self):
-        s = f"{self.subject}-{self.number}{f'({self.common_course_number})' if self.common_course_number else ''} "
-        s += f"{self.title}\n{self.description}"
-
-        return s
