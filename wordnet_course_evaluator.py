@@ -3,7 +3,7 @@ from nltk import word_tokenize
 from nltk import pos_tag
 
 
-from course_evaluator import CourseEvaluator
+from evaluators import CourseEvaluator
 from course import Course
 
 

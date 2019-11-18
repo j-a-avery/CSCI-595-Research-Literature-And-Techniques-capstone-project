@@ -7,7 +7,7 @@ from gensim.parsing.preprocessing import strip_short
 
 from nltk.corpus import stopwords
 
-from course_evaluator import CourseEvaluator
+from evaluators import CourseEvaluator
 
 
 class EmbeddingCourseEvaluator(CourseEvaluator):
